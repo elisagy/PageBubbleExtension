@@ -29,6 +29,8 @@
     "debugger",
     "history",
     "idle",
+    "identity",
+    "identity.email",
     "management",
     "notifications",
     "pageCapture",
@@ -38,9 +40,9 @@
     "webRequest",
     "webRequestBlocking"
   ],
-  "options_ui": {
-    "page": "options.html",
-    "chrome_style": true
+  "oauth2": {
+    "client_id": "640019354689-cfm9mrsfvic1fp3fddej2bm9plghtb1f.apps.googleusercontent.com",
+    "scopes": ["profile", "email"]
   },
   "content_scripts": [
     {
