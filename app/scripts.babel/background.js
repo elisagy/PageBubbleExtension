@@ -18,8 +18,25 @@ function request(url, method) {
   });
 }
 
-chrome.runtime.onInstalled.addListener(details => {
-  console.log('previousVersion', details.previousVersion);
+chrome.runtime.onConnect.addListener(port => {
+  port.onMessage.addListener((request, sender) => {
+    switch (request.function) {
+      case 'getProfileUserInfo':
+        chrome.identity.getProfileUserInfo(profileUserInfo => sender.postMessage(profileUserInfo));
+        break;
+      case 'getAuthToken':
+        chrome.identity.getAuthToken({
+          'interactive': true
+        }, token => {
+          sender.postMessage(token);
+          chrome.identity.removeCachedAuthToken({ token });
+        });
+        break;
+      default:
+        sendResponse();
+        break;
+    }
+  });
 });
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
