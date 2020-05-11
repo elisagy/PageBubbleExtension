@@ -39,9 +39,9 @@ chrome.runtime.onConnect.addListener(port => {
         break;
       case 'updateWebpage':
         chrome.identity.getAuthToken({
-          'interactive': true
+          'interactive': false
         }, token => {
-          request(`https://www.pagebubble.com/api/webpages/${encodeURIComponent(req.params.url)}`, 'PUT', req.params, {
+          token && request(`https://www.pagebubble.com/api/webpages/${encodeURIComponent(req.params.url)}`, 'PUT', req.params, {
             'Authorization': `Bearer ${token}`
           });
         });
